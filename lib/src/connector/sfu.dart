@@ -75,7 +75,7 @@ class IonSDKSFU extends IonService {
   }
 
   Future<RTCDataChannel> createDataChannel(String label) {
-    return _sfu.createDataChannel(label);
+    return _sfu.createDataChannel(label, RTCDataChannelInit());
   }
 
   @override

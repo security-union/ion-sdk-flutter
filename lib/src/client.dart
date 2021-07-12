@@ -150,7 +150,6 @@ class Client {
           channel.onMessage = (RTCDataChannelMessage msg) {
             onspeaker?.call(json.convert(msg.text));
           };
-          completer.complete();
         }
         ondatachannel?.call(channel);
       };
@@ -248,12 +247,13 @@ class Client {
     description.sdp = capSel.sdp();
   }
 
-  Future<RTCDataChannel> createDataChannel(String label) {
+  Future<RTCDataChannel> createDataChannel(
+      String label, RTCDataChannelInit init) {
     if (transports.isEmpty) {
       throw AssertionError(ERR_NO_SESSION);
     }
     return transports[RolePub]!
         .pc!
-        .createDataChannel(label, RTCDataChannelInit()..maxRetransmits = 30);
+        .createDataChannel(label, init..maxRetransmits = 30);
   }
 }
